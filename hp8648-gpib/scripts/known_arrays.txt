@@ -1,0 +1,88 @@
+# Calibration arrays read by 'backup' and their EXACT element counts.
+# The tool reads indices 0..count-1 and NEVER probes past the end:
+#   2026-10-05: reading outllvl_frq index 6 (one past the end) on an 8648C fw B.04.08 halted the
+#   firmware: "FATAL FIRMWARE ERROR: assertion failure 597: h:FileMgr.m,v 1.18 96/01/20".
+#   Power cycle recovered it; calibration unchanged.  Some arrays return -224 instead, but you
+#   cannot know which in advance.
+# Columns: name  count_BCD  count_A   (0 = array not present on that model; '?' = unverified)
+# Counts checked against fw B.04.08's read routines (docs/re/firmware-b0408-report.md, Task 1).
+# Sources: [C] read on 8648C 3642U01792 fw B.04.08; [Y] YO4HFU READ_v1.5.py log, 8648B fw B.04.09;
+#          8648A counts from YO4HFU's script (model A branch), not verified by us.
+config_cal      5    5     # [C][Y]
+config2_cal     1    1     # [C][Y]
+out_pre_pwr     7    7     # [C][Y]
+gen_loss_frq    34   34    # [C] fw B.04.08 limit 34 on all models (read FUN_000314cc idx<0x22); 8648C read 34
+gen_loss_cal    34   34    # [C] fw B.04.08 limit 34 on all models (read FUN_00031704 idx<0x22); 8648C read 34
+out_loss_frq    22   34    # [C][Y]
+out_0db         22   34
+out_10db        22   34
+out_20db        22   34
+out_30db        22   34
+out_40db        22   34
+out_50db        22   34
+out_60db        22   34
+out_70db        22   34
+out_80db        22   34
+out_90db        22   34
+out_100db       22   34
+out_110db       22   34
+out_120db       22   34
+out_130db       22   34
+outlloss_frq    6    6     # [C] fw B.04.08 limit 6 (read FUN_0002eb26); 8648C answered 6
+outl_0db        6    6
+outl_10db       6    6
+outl_20db       6    6
+outl_30db       6    6
+outl_40db       6    6
+outl_50db       6    6
+outl_60db       6    6
+outl_70db       6    6
+outl_80db       6    6
+outl_90db       6    6
+outl_100db      6    6
+outl_110db      6    6
+outl_120db      6    6
+outl_130db      6    6
+atn_comp_frq    106  0     # B/C/D only
+atn_comp_cal    106  0
+fextlvl_frq     108  0     # B/C/D only (A10 frequency extension)
+fextlvl_gain    108  0
+fextlvl_ofs     108  0
+fm_acfm_dac     1    0
+out_lvl_frq     32   32
+out_lvl_gain    32   32
+out_lvl_ofs     32   32
+outllvl_frq     6    6     # index 6 CRASHES the firmware: its read routine has NO range check
+outllvl_gain    6    6
+outllvl_ofs     6    6
+mod_fm_1khz     4    4
+mod_fm_400hz    4    4
+mod_fm_extdc    4    4
+mod_fm_extac    4    4
+mod_pm_1khz     4    4
+mod_pm_400hz    4    4
+mod_pm_extdc    4    4
+mod_pm_extac    4    4
+mod_am_1khz     2    2
+mod_am_400hz    2    2
+mod_am_extdc    2    2
+mod_am_extac    2    2
+fm_sens_frq     44   44    # [Y]
+fm_sens_sgn     44   44    # [Y]
+fm_sens_mult    1    1     # [Y]
+out_tune_frq    25   25    # [Y]
+out_tune_dac    25   25    # [Y]
+timebase        2    2     # [C][Y]
+out_temp_cal    1    1     # [Y]
+tc_thru_path    3    3     # [Y]
+tc_10_40db      3    3     # [Y]
+tc_50_70db      3    3     # [Y]
+tc_80_100db     3    3     # [Y]
+tc_110_130db    3    3     # [Y]
+
+# Option 1EP (pager/DSP) arrays. B.04.08 ACCEPTS these names (ROM name table 0x4acba), but they
+# are deliberately NOT read: on a unit without 1EP they crash the firmware (dsp_2fsk_cal did so,
+# 2026-10-05). Listed here as known-but-excluded so the tool never probes them.
+# dsp_sin_cal    ?    ?    # 1EP only - DO NOT READ without the option fitted
+# dsp_2fsk_cal   ?    ?    # 1EP only - DO NOT READ
+# dsp_4fsk_cal   ?    ?    # 1EP only - DO NOT READ
