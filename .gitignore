@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+
+# Packaged skill ZIPs (rebuild with package_skills.py)
+dist/
+
+# Instrument manuals kept beside a skill for reference (not redistributed)
+*.pdf
+manuals/
